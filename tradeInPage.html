@@ -116,6 +116,7 @@
 
                     <!-- Список доступних марок автомобілів -->
                     <select id = "selectedCar">
+                        <option value = "none">Оберіть марку</option>
                         <option value = "BMW">BMW</option>
                         <option value = "Porsche">Porsche</option>
                         <option value = "Ford">Ford</option>
@@ -127,22 +128,13 @@
                         <option value = "Hyundai">Hyundai</option>
                     </select>
 
-                    <!-- 
-                    <select id = "selectedModel">
-                        <option value = "BMW">Polo</option>
-                        <option value = "Porsche">Passat</option>
-                        <option value = "Ford">Jetta</option>
-                        <option value = "Toyota">Golf</option>
-                        <option value = "Volkswagen">Tiguan</option>
-                        <option value = "Mercedes">Touareg</option>
-                        <option value = "Renault">ID</option>
-                        <option value = "Honda">Transporter</option>
+                    <select class = "selectedModel" id = "selectedModel">
+                        
                     </select> 
 
-                    <select id = "year">
-                        ...
+                    <select class = "selectedYear" id = "selectedYear">
+
                     </select> 
-                    -->
 
                     <!-- В подальшому буде реалізована звичайна логіка з перевіркою, що вибрав користувач.
                      if (selectedCar.value === "Volkswagen") {

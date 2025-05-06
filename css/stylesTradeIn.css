@@ -234,6 +234,14 @@ article .stepBlock:nth-child(2) {
     }
 }
 
+.selectedModel {
+    display: none;
+}
+
+.selectedYear {
+    display: none;
+}
+
 .choiceCar img {
     position: absolute;
     left: 40rem;
