@@ -470,6 +470,11 @@ article img {
     font-weight: var(--font-weight-regular);
 }
 
+.inputInfoContainer {
+    display: flex;
+    gap: 1rem;
+}
+
 .choice input {
     padding: 0.25rem 1rem;
     background-color: #FBF8EF;

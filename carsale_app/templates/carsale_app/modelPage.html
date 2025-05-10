@@ -1,322 +1,156 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMW</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
-    <!-- Виправлено шлях до CSS -->
-    <link rel="stylesheet" href="{% static 'carsale_app/css/stylesModelPage.css' %}">
-</head>
-<body>
-    <!-- Header -->
-    <header id="header">
-        <!-- Виправлено посилання на головну сторінку -->
-        <a href="{% url 'index' %}" class="logo">
-            <!-- Виправлено шлях до зображення -->
-            <img src="{% static 'carsale_app/img/General/MainLogo.png' %}" alt="Bmw Logo" class="main-ico">
-        </a>
-        <nav>
-            <ul class="nav-list">
-                <!-- Меню моделей -->
-                <li>
-                    <a href="#" class="navButton" id="buttonModels">Моделі</a>
-                </li>
-                <ul class="subMenu">
-                    <li>
-                        <!-- Виправлено посилання -->
-                        <a href="{% url 'models' %}?model=taycan">
-                            <p>M-Series</p>
-                            <!-- Виправлено шлях до зображення -->
-                            <img src="{% static 'carsale_app/img/Menu/MSeries.png' %}" alt="M-Series">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'models' %}?model=porsche911">
-                            <p>X-Series</p>
-                            <img src="{% static 'carsale_app/img/Menu/XSeries.jpg' %}" alt="X-Series">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'models' %}?model=cayenne">
-                            <p>3-Series</p>
-                            <img src="{% static 'carsale_app/img/Menu/3Series.jpg' %}" alt="3-Series">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'models' %}?model=macan">
-                            <p>5-Series</p>
-                            <img src="{% static 'carsale_app/img/Menu/5Series.jpg' %}" alt="5-Series">
-                        </a>
-                    </li>
-                </ul>
 
-                <!-- Меню контактів з кнопкою -->
-                <li>
-                    <!-- Виправлено посилання -->
-                    <a href="{% url 'contacts_page' %}" class="navButton" id="buttonContacts">Контакти</a>
-                </li>
-                <ul class="contactsMenu">
-                    <li>
-                        <h2>Наші контакти</h2>
-                        <address>
-                            <dl>
-                                <dt>моб. телефон:</dt>
-                                <dd><a href="tel:+12345">+12345</a></dd>
-                                <dt>е-пошта:</dt>
-                                <dd><a href="mailto:porsche@test.ua">bmwmain@test.ua</a></dd>
-                            </dl>
-                        </address>
-                    </li>
-                    <li>
-                        <h2>Адреса автосалону</h2>
-                        <address>
-                            <dl>
-                                <dt>місто:</dt>
-                                <dd>м. Київ</dd>
-                                <dt>бульвар:</dt>
-                                <dd>Вацлава Гавела 4</dd>
-                            </dl>
-                        </address>
-                    </li>
-                    <!-- Виправлено шлях до зображення -->
-                    <img src="{% static 'carsale_app/img/General/FooterImg.png' %}" alt="porscheImg">
-                </ul>
+{% block title %}
+{% if car %}{{ car.brand }} {{ car.model }}{% else %}Тест-драйв BMW{% endif %}
+{% endblock %}
 
-                <!-- Сервісне меню (test-drive, trade-in) + кнопка -->
-                <li>
-                    <!-- Виправлено посилання -->
-                    <a href="{% url 'service_page' %}" class="navButton" id="buttonServices">Сервіси</a>
-                </li>
-                <ul class="servicesMenu">
-                    <li>
-                        <a href="{% url 'service_page' %}">Сервісне обслуговування</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'model_page' %}#testDrive">Test-Drive в автосалонах Porsche</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'trade_in_page' %}">Trade-In</a>
-                    </li>
-                </ul>
-            </ul>
-        </nav>
-    </header>
-    <!-- /Header -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'carsale_app/css/stylesModelPage.css' %}">
+{% endblock %}
 
-    <main>
-        <!-- Основне відображення автомобіля та основних характеристик -->
-        <article>
-            <div class="modelCar">
-                <h1 id="modelName">Taycan</h1> 
-                <h2 id="modelPrice"><span>від</span> 100 000$</h2> 
+{% block content %}
+<!-- Основне відображення автомобіля та основних характеристик -->
+<article>
+    <div class="modelCar">
+        {% if car %}
+            <h1 id="modelName">{{ car.brand }} {{ car.model }}</h1> 
+            <h2 id="modelPrice"><span>від</span> {{ car.price }}$</h2> 
+        {% else %}
+            <h1 id="modelName">Оберіть BMW для тест-драйву</h1> 
+            <h2 id="modelPrice">Виберіть модель для перегляду цін</h2> 
+        {% endif %}
+    </div>
+    <div class="imgInfo">
+        {% if car %}
+            <img id="modelImage" src="{% static 'carsale_app/img/Models/'|add:car.series|add:'/'|add:car.model|add:'.png' %}" alt="{{ car.model }}"> 
+            <div class="detailInfo">
+                <ul id="modelDetails">
+                    <li>Потужність (к/с): {{ car.power }}</li>
+                    <li>Макс. швидкість: {{ car.max_speed }} км/год</li>
+                    <li>Прискорення: {{ car.acceleration }} с</li>
+                    <li>Запас ходу: {{ car.range_km }} км</li>
+                    <li>{{ car.description|truncatewords:30 }}</li>
+                </ul>
             </div>
-        
-            <div class="imgInfo">
-                <!-- Виправлено шлях до зображення -->
-                <img id="modelImage" src="{% static 'carsale_app/img/Models/MSeries/BmwMSeries.png' %}" alt="Taycan"> 
+        {% else %}
+            <img id="modelImage" src="{% static 'carsale_app/img/General/BmwXM.jpg' %}" alt="BMW"> 
+            <div class="detailInfo">
+                <ul id="modelDetails">
+                    <li>Оберіть автомобіль для перегляду характеристик.</li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+    <div class="buttons">
+        <a href="#testDrive">Тест-Драйв</a>
+        {% if car %}
+            <a href="#techInfo">Тех. харак.</a>
+            <a href="#sales">Пропозиції</a>
+        {% endif %}
+    </div>
+</article>
 
-                <div class="detailInfo">
-                    <ul id="modelDetails">
-                        <!-- Тут будуть динамічно вставлятися характеристики -->
-                        <!-- Наприклад:
-                            <li><span>462</span><br>Потужність (к/с)</li>
-                            <li><span>250 км/год</span><br>Максимальна швид.</li>
-                            <li><span>~520 км</span><br>Запас ходу</li>
-                            <li><span>3,7 с</span><br>Прискорення</li>
-                        -->
+<!-- Текст для заповнення вільного простору -->
+<section class="generalInfo">
+    <img src="{% static 'carsale_app/img/General/PreFooter2.jpg' %}" alt="BMW">
+    <div class="text">
+        {% if car %}
+            <h2>Лінійка BMW {{ car.series }}</h2>
+            <p>{{ car.description|truncatewords:50 }}</p>
+        {% else %}
+            <h2>Лінійка BMW</h2>
+            <p>Ознайомтесь із модельним рядом BMW, який поєднує динаміку, потужність і німецьку інженерну точність.</p>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Блок з тест-драйвом -->
+<section class="testDrive" id="testDrive">
+    <div class="headerTestDrive">
+        <h2>Хочете спробувати BMW?</h2>
+        <h3>Тест-Драйв</h3>
+    </div>
+    <div class="infoTestDrive">
+        <div class="conditions">
+            <p>Для того, щоб скористатися послугою Тест-Драйву від BMW - оберіть бажаний автомобіль. Особа, що буде керувати на Тест-Драйві, обов‘язково має мати водійське посвідчення.</p>
+            <p><span>*Важливо</span>, записатися на Тест-Драйв може, лише особа, яка володіє правами більше ніж 2 роки.</p>
+        </div>
+        <div class="choice">
+            <form method="post" id="testDriveForm">
+                {% csrf_token %}
+                <ul class="generalList">
+                    <li>
+                        1. Оберіть бажаний автомобіль.
+                        {{ form.car }}
+                    </li>
+                    <li>
+                        2. Оберіть дату та час.
+                        <div class="inputInfoContainer">
+                            {{ form.preferred_date }}
+                            {{ form.preferred_time }}
+                        </div>
+                    </li>
+                    <li>
+                        3. Введіть контактні дані.
+                        <div class="inputInfoContainer">
+                            {{ form.customer_name }}
+                            {{ form.customer_email }}
+                        </div>
+                    </li>
+                </ul>
+                <button type="submit" id="buttonSave">Зберегти</button>
+            </form>
+        </div>
+        <div class="submitButton" id="submitScreen">
+            <div class="content">
+                <p>Успішно збережено!</p>
+                <button id="buttonOK">ok</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Блок з розгорнутими технічними характеристиками -->
+{% if car %}
+<section class="techInfo" id="techInfo">
+    <h3>Технічні Характеристики</h3>
+    <div class="techChoice">
+        <img src="{% static 'carsale_app/img/General/techImg.png' %}" alt="BMW" id="techImg">
+        <ul>
+            <li>
+                <details>
+                    <summary>Запас ходу</summary>
+                    <ul>
+                        <li>Запас ходу: {{ car.range_km }} км</li>
                     </ul>
-                </div>
-            </div>
-
-            <div class="buttons">
-                <a href="#testDrive">Тест-Драйв</a>
-                <a href="#techInfo">Тех. харак.</a>
-                <a href="#sales">Пропозиції</a>
-            </div>
-        </article>
-        
-        <!-- Текст для заповнення вільного простору -->
-        <section class="generalInfo">
-            <!-- Виправлено шлях до зображення -->
-            <img src="{% static 'carsale_app/img/General/PreFooter2.jpg' %}" alt="Taycan">
-
-            <div class="text">
-                <h2>Лінійка BMW M-Series</h2>
-                <p>Модельний ряд представлений у різноманітних варіаціях — від компактних купе до потужних седанів. Автомобілі M-серії створені для тих, хто цінує динаміку, точність і справжній драйв. Вони поєднують в собі класичні бензинові двигуни з новітніми технологіями, відповідаючи всім вимогам сучасного світу.</p>
-            </div>
-        </section>
-
-        <!-- Блок з тест-драйвом -->
-        <section class="testDrive" id="testDrive">
-            <div class="headerTestDrive">
-                <h2>Хочете спробувати BMW?</h2>
-                <h3>Тест-Драйв</h3>
-            </div>
-
-            <div class="infoTestDrive">
-                <div class="conditions">
-                    <p>Для того, щоб скористатися послугою Тест-Драйву від BMW - оберіть бажаний автомобіль. Особа, що буде керувати на Тест-Драйві, обов‘язково має мати водійське посвідчення.</p>
-                    <p><span>*Важливо</span>, записатися на Тест-Драйв може, лише особа, яка володіє правами більше ніж 2 роки.</p>
-                </div>
-
-                <!-- В подальшому, якщо всі данні будуть введені коректно, то будуть з'являтися в адмін-панелі -->
-                <div class="choice">
-                    <ul class="generalList">
-                        <li>
-                            1. Оберіть бажаний автомобіль.
-                            <ul class="carChoice" id="carChoice">
-                                <li>
-                                    <label>BMW M-Series</label>
-                                    <!-- Виправлено шлях до зображення -->
-                                    <img src="{% static 'carsale_app/img/List/listTaycan.png' %}">
-                                </li>
-                                <li>
-                                    <label>BMW X-Series</label>
-                                    <img src="{% static 'carsale_app/img/List/listPorsche911.png' %}">
-                                </li>
-                                <li>
-                                    <label>BMW 3-Series</label>
-                                    <img src="{% static 'carsale_app/img/List/listPanamera.png' %}">
-                                </li>
-                                <li>
-                                    <label>BMW 5-Series</label>
-                                    <img src="{% static 'carsale_app/img/List/listMacan.png' %}">
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            2. Оберіть дату.
-                            <input type="date" id="dateInput">
-                        </li>
-
-                        <li>
-                            3. Введіть контактні дані.
-                            <input type="email" id="emailInput">
-                        </li>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Двигун</summary>
+                    <ul>
+                        <li>Потужність (к/с): {{ car.power }}</li>
+                        <li>Макс. швидкість: {{ car.max_speed }} км/год</li>
+                        <li>Прискорення: {{ car.acceleration }} с</li>
                     </ul>
+                </details>
+            </li>
+        </ul>
+    </div>
+</section>
+{% endif %}
 
-                    <button type="submit" id="buttonSave">Зберегти</button>
-                </div>
+<!-- Текст для заповнення вільного простору -->
+<section class="generalInfo">
+    <img src="{% static 'carsale_app/img/General/PreFooter4.jpg' %}" alt="BMW">
+    <div class="text">
+        <h2>Твій BMW</h2>
+        <p>Вам доступний конфігуратор, завдяки якому Ви можете створити BMW своєї мрії. Проявіть креативність, та створіть автомобіль мрії.</p>
+    </div>
+</section>
+{% endblock %}
 
-                <!-- Вивід повідомлення про успішне збереження введених даних -->
-                <div class="submitButton" id="submitScreen">
-                    <div class="content">
-                        <p>Успішно збережено!</p>
-                        <button id="buttonOK">ok</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Блок з розгорнутими технічними характеристиками -->
-        <section class="techInfo" id="techInfo">
-            <h3>Технічні Характеристики</h3>
-
-            <div class="techChoice">
-                <!-- Виправлено шлях до зображення -->
-                <img src="{% static 'carsale_app/img/General/techImg.png' %}" alt="porscheImg" id="techImg">
-
-                <ul>
-                    <li>
-                        <details>
-                            <summary>Запас ходу</summary>
-                            <ul>
-                                <li>
-                                    Запас ходу у комбінованому циклі:<br><span>579 - 678 км</span>
-                                </li>
-                                <li>
-                                    Запас ходу WLTP у міському циклі:<br><span>569 - 662 км</span>
-                                </li>
-                                <li>
-                                    Запас ходу у міському циклі:<br><span>719 - 821 км</span>
-                                </li>
-                            </ul>
-                        </details>
-                    </li>
-                    <li>
-                        <details>
-                            <summary>Двигун</summary>
-                            <ul>
-                                <li>
-                                    Потужність (кВт):<br><span>300</span>
-                                </li>
-                                <li>
-                                    Потужність (к. с.):<br><span>408</span>
-                                </li>
-                            </ul>
-                        </details>
-                    </li>
-                    <li>
-                        <details>
-                            <summary>Місткість</summary>
-                            <ul>
-                                <li>
-                                    Об'єм багажного відділення ззаду:<br><span>407 л</span>
-                                </li>
-                                <li>
-                                    Об’єм багажного відділення:<br><span>84л</span>
-                                </li>
-                            </ul>
-                        </details>
-                    </li>
-                    <li>
-                        <details>
-                            <summary>Сервіс</summary>
-                            <ul>
-                                <li>
-                                    Гарантійний період:<br><span>2 роки</span>
-                                </li>
-                                <li>
-                                    Строк гарантії на високовольтну акумуляторну батарею:<br><span>8 років / 160 000 км</span>
-                                </li>
-                            </ul>
-                        </details>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Текст для заповнення вільного простору -->
-        <section class="generalInfo">
-            <!-- Виправлено шлях до зображення -->
-            <img src="{% static 'carsale_app/img/General/PreFooter4.jpg' %}" alt="Taycan">
-
-            <div class="text">
-                <h2>Твій BMW</h2>
-                <p>Вам доступний конфігуратор, завдяки якому Ви можете створити BMW своєї мрії. Проявіть креативність, та створіть автомобіль мрії.</p>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <section class="menuButtons">
-            <!-- Залишено #, бо це не сторінка -->
-            <a href="#" class="footerButton">Всі моделі</a>
-            <!-- Виправлено посилання -->
-            <a href="{% url 'service_page' %}" class="footerButton">Сервіси</a>
-            <a href="{% url 'model_page' %}#sales" class="footerButton">Новинки</a>
-            <a href="{% url 'contacts_page' %}" class="footerButton">Контакти</a>
-        </section>
-
-        <!-- Виправлено шлях до зображення -->
-        <img src="{% static 'carsale_app/img/General/FooterImg.png' %}" alt="footerImg" class="footerImg">
-
-        <section class="menuButtons">
-            <a href="{% url 'contacts_page' %}" class="footerButton">м. Київ</a>
-            <a href="{% url 'contacts_page' %}" class="footerButton">бул. Вацлава Гавела 4</a>
-            <p class="footerButton">Пн-Пт: 09:00 - 21:00</p>
-            <p class="footerButton">Сб-Нд: 10:00 - 16:00</p>
-        </section>
-    </footer>
-    <!-- /Footer -->
-
-    <!-- Виправлено шлях до JS -->
-    <script src="{% static 'carsale_app/js/scriptModelPage.js' %}"></script>
-</body>
-</html>
+{% block scripts %}
+<script src="{% static 'carsale_app/js/scriptModelPage.js' %}"></script>
+{% endblock %}
