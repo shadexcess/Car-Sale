@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Контакти BMW
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'carsale_app/css/stylesContactsPage.css' %}">
+{% endblock %}
+
+{% block content %}
+<article>
+    <!-- Перший контактний блок -->
+    <section class="generalBlock">
+        <h1>Контакти офіційного представника BMW</h1>
+        <ul>
+            <li>
+                <label>країна</label>
+                <p>Німеччина</p>
+            </li>
+            <li>
+                <label>холдингова компанія</label>
+                <p>BMW-Group</p>
+            </li>
+            <li>
+                <label>місто</label>
+                <p>Мюнхен</p>
+            </li>
+            <li>
+                <label>вулиця</label>
+                <p>БМВ 7</p>
+            </li>
+        </ul>
+        <div class="map" id="map1">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d4473.0030522911!2d11.570476863892239!3d48.19383408922392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1suk!2sua!4v1745220178299!5m2!1suk!2sua" width="480" height="320" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <img src="{% static 'carsale_app/img/BMW X-Series/BmwX5Img.png' %}" alt="Porsche">
+    </section>
+
+    <!-- Другий контактний блок -->
+    <section class="generalBlock">
+        <h1>Контакти офіційного представника BMW</h1>
+        <ul>
+            <li>
+                <label>країна</label>
+                <p>Україна</p>
+            </li>
+            <li>
+                <label>холдингова компанія</label>
+                <p>BMW-Group</p>
+            </li>
+            <li>
+                <label>місто</label>
+                <select id="citySelect">
+                    <option value="Kyiv">Київ</option>
+                    <option value="Lviv">Львів</option>
+                    <option value="Odesa">Одеса</option>
+                    <option value="Kharkiv">Харків</option>
+                </select>
+            </li>
+            <li>
+                <label>вулиця</label>
+                <p id="street">бул. Вацлава Гавела 4</p>
+            </li>
+        </ul>
+        <div class="map" id="map2">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1510.6915114304775!2d30.42474213372874!3d50.447244292058336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1suk!2sua!4v1745220098864!5m2!1suk!2sua" width="480" height="320" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <img src="{% static 'carsale_app/img/BMW M-Series/MSeries.png' %}" alt="Porsche">
+    </section>
+</article>
+
+<!-- Текст з зображенням, щоб заповнити простір -->
+<section class="generalInfo">
+    <img src="{% static 'carsale_app/img/General/PreFooter2.jpg' %}" alt="porscheImg">
+    <div class="text">
+        <h2>BMW</h2>
+        <p>Марка, яка символізує досконале поєднання інновацій, динаміки та елегантності. Від свого заснування в 1916 році BMW вражає світ передовими технологіями та унікальним підходом до драйву. Кожен автомобіль BMW — це не просто засіб пересування, а втілення інженерної майстерності та задоволення від кермування, яке неможливо забути.</p>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'carsale_app/js/scriptContacts.js' %}"></script>
+{% endblock %}
