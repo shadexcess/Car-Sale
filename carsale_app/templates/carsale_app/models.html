@@ -10,29 +10,93 @@
 {% endblock %}
 
 {% block content %}
-<!-- Увесь доступний модельний ряд -->
-<article id="article">
-    {% for series, cars in cars_by_series.items %}
-    <section class="typeContainer">
-        <h1>{{ series }}</h1>
-        {% for car in cars %}
-        <a href="{% url 'model_page' %}?car_id={{ car.id }}" class="carLink">
-            <div class="carContainer">
-                <img src="{% static 'carsale_app/img/BMW '|add:car.series|add:'/'|add:car.model|add:'.jpg' %}" alt="{{ car.model }}">
-                <h2>{{ car.model }}</h2>
-                <div class="addInfo">
-                    <p>Потужність (к/с): {{ car.power }}</p>
-                    <p>Макс. швид.: {{ car.max_speed }} км/год</p>
-                    <p>Прискорення: {{ car.acceleration }} с</p>
-                    <p>Запас ходу: {{ car.range_km }} км</p>
-                </div>
-                <h3>від {{ car.price }}$</h3>
+<!-- Основний контейнер для фільтрів і модельного ряду -->
+<div class="main-container">
+    <!-- Панель фільтрів -->
+    <aside class="filter-panel">
+        <h2>Фільтри</h2>
+        <form id="filter-form">
+            <!-- Фільтр за серією -->
+            <div class="filter-group">
+                <label for="series">Серія:</label>
+                <select id="series" name="series">
+                    <option value="">Усі серії</option>
+                    {% for series in cars_by_series.keys %}
+                    <option value="{{ series }}">{{ series }}</option>
+                    {% endfor %}
+                </select>
             </div>
-        </a>
+
+            <!-- Фільтр за потужністю -->
+            <div class="filter-group">
+                <label for="power">Потужність (к/с):</label>
+                <input type="number" id="power-min" name="power-min" placeholder="Мін." min="0">
+                <input type="number" id="power-max" name="power-max" placeholder="Макс." min="0">
+            </div>
+
+            <!-- Фільтр за максимальною швидкістю -->
+            <div class="filter-group">
+                <label for="max-speed">Макс. швидкість (км/год):</label>
+                <input type="number" id="speed-min" name="speed-min" placeholder="Мін." min="0">
+                <input type="number" id="speed-max" name="speed-max" placeholder="Макс." min="0">
+            </div>
+
+            <!-- Фільтр за прискоренням -->
+            <div class="filter-group">
+                <label for="acceleration">Прискорення (с):</label>
+                <input type="number" id="acceleration-min" name="acceleration-min" placeholder="Мін." min="0" step="0.1">
+                <input type="number" id="acceleration-max" name="acceleration-max" placeholder="Макс." min="0" step="0.1">
+            </div>
+
+            <!-- Фільтр за запасом ходу -->
+            <div class="filter-group">
+                <label for="range">Запас ходу (км):</label>
+                <input type="number" id="range-min" name="range-min" placeholder="Мін." min="0">
+                <input type="number" id="range-max" name="range-max" placeholder="Макс." min="0">
+            </div>
+
+            <!-- Фільтр за ціною -->
+            <div class="filter-group">
+                <label for="price">Ціна ($):</label>
+                <input type="number" id="price-min" name="price-min" placeholder="Мін." min="0">
+                <input type="number" id="price-max" name="price-max" placeholder="Макс." min="0">
+            </div>
+
+            <!-- Кнопки -->
+            <button type="submit" class="filter-button">Застосувати</button>
+            <button type="button" class="reset-button" onclick="resetFilters()">Скинути</button>
+        </form>
+    </aside>
+
+    <!-- Увесь доступний модельний ряд -->
+    <article id="article">
+        {% for series, cars in cars_by_series.items %}
+        <section class="typeContainer" data-series="{{ series }}">
+            <h1>{{ series }}</h1>
+            {% for car in cars %}
+            <a href="{% url 'model_page' %}?car_id={{ car.id }}" class="carLink" 
+               data-power="{{ car.power }}" 
+               data-max-speed="{{ car.max_speed }}" 
+               data-acceleration="{{ car.acceleration }}" 
+               data-range="{{ car.range_km }}" 
+               data-price="{{ car.price }}">
+                <div class="carContainer">
+                    <img src="{% static 'carsale_app/img/BMW '|add:car.series|add:'/'|add:car.model|add:'.jpg' %}" alt="{{ car.model }}">
+                    <h2>{{ car.model }}</h2>
+                    <div class="addInfo">
+                        <p>Потужність (к/с): {{ car.power }}</p>
+                        <p>Макс. швид.: {{ car.max_speed }} км/год</p>
+                        <p>Прискорення: {{ car.acceleration }} с</p>
+                        <p>Запас ходу: {{ car.range_km }} км</p>
+                    </div>
+                    <h3>від {{ car.price }}$</h3>
+                </div>
+            </a>
+            {% endfor %}
+        </section>
         {% endfor %}
-    </section>
-    {% endfor %}
-</article>
+    </article>
+</div>
 
 <!-- Текст для заповнення вільного простору -->
 <section class="text">
