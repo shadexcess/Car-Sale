@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Модельний ряд BMW
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'carsale_app/css/stylesModels.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Увесь доступний модельний ряд -->
+<article id="article">
+    {% for series, cars in cars_by_series.items %}
+    <section class="typeContainer">
+        <h1>{{ series }}</h1>
+        {% for car in cars %}
+        <a href="{% url 'model_page' %}?car_id={{ car.id }}" class="carLink">
+            <div class="carContainer">
+                <img src="{% static 'carsale_app/img/BMW '|add:car.series|add:'/'|add:car.model|add:'.jpg' %}" alt="{{ car.model }}">
+                <h2>{{ car.model }}</h2>
+                <div class="addInfo">
+                    <p>Потужність (к/с): {{ car.power }}</p>
+                    <p>Макс. швид.: {{ car.max_speed }} км/год</p>
+                    <p>Прискорення: {{ car.acceleration }} с</p>
+                    <p>Запас ходу: {{ car.range_km }} км</p>
+                </div>
+                <h3>від {{ car.price }}$</h3>
+            </div>
+        </a>
+        {% endfor %}
+    </section>
+    {% endfor %}
+</article>
+
+<!-- Текст для заповнення вільного простору -->
+<section class="text">
+    <p>"Швидкість. Точність. Досконалість."</p>
+    <p>Кожна BMW — це поєднання безкомпромісної потужності і точності, що дає водію максимальний контроль і насолоду від їзди. Безперервно вдосконалюючи технології, ми створюємо машини, які завжди залишаються на крок попереду.</p>
+</section>
+
+<!-- Префутер -->
+<section class="preFooter" id="preFooter">
+    <img src="{% static 'carsale_app/img/General/mainPage/PreFooter.jpg' %}" alt="BMW" id="questionImg">
+    <div class="question" id="question">
+        <h2>Чому BMW?</h2>
+        <p>Лінійка автомобілів BMW втілює динаміку, потужність і німецьку інженерну точність. Моделі забезпечують блискавичний розгін, ідеальне керування та передові технології, створені для справжнього драйву.</p>
+    </div>
+</section>
+
+<!-- Текст для заповнення вільного простору -->
+<section class="text">
+    <p>"Швидкість. Точність. Досконалість."</p>
+    <p>Кожна BMW — це поєднання безкомпромісної потужності і точності, що дає водію максимальний контроль і насолоду від їзди. Безперервно вдосконалюючи технології, ми створюємо машини, які завжди залишаються на крок попереду.</p>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'carsale_app/js/scriptModels.js' %}"></script>
+{% endblock %}
