@@ -1,5 +1,4 @@
 const buttonModel = document.querySelector("#buttonModels");
-const subMenu = document.querySelector(".subMenu");
 
 const buttonContacts = document.querySelector("#buttonContacts");
 const contactsMenu = document.querySelector(".contactsMenu");
@@ -30,7 +29,6 @@ function AddRemMenu(button, menu) {
     });
 }
 
-AddRemMenu(buttonModel, subMenu);
 AddRemMenu(buttonContacts, contactsMenu);
 AddRemMenu(buttonServices, servicesMenu);
 

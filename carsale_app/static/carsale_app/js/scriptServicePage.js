@@ -1,5 +1,4 @@
 const buttonModel = document.querySelector("#buttonModels");
-const subMenu = document.querySelector(".subMenu");
 
 const buttonContacts = document.querySelector("#buttonContacts");
 const contactsMenu = document.querySelector(".contactsMenu");
@@ -45,7 +44,6 @@ function isVisible(className) {
     });
 }
 
-AddRemMenu(buttonModel, subMenu);
 AddRemMenu(buttonContacts, contactsMenu);
 AddRemMenu(buttonServices, servicesMenu);
 

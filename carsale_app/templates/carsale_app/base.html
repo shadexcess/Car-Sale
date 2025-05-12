@@ -21,34 +21,8 @@
             <ul class="nav-list">
                 <!-- Меню моделей -->
                 <li>
-                    <a href="#" class="navButton" id="buttonModels">Моделі</a>
+                    <a href="{% url 'models' %}?model=m-series" class="navButton" id="buttonModels">Моделі</a>
                 </li>
-                    <ul class="subMenu">
-                        <li>
-                            <a href="{% url 'models' %}?model=m-series">
-                                <p>M-Series</p>
-                                <img src="{% static 'carsale_app/img/Menu/MSeries.png' %}" alt="M-Series">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'models' %}?model=x-series">
-                                <p>X-Series</p>
-                                <img src="{% static 'carsale_app/img/Menu/XSeries.jpg' %}" alt="X-Series">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'models' %}?model=3-series">
-                                <p>3-Series</p>
-                                <img src="{% static 'carsale_app/img/Menu/3Series.jpg' %}" alt="3-Series">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'models' %}?model=5-series">
-                                <p>5-Series</p>
-                                <img src="{% static 'carsale_app/img/Menu/5Series.jpg' %}" alt="5-Series">
-                            </a>
-                        </li>
-                    </ul>
                 <!-- Меню контактів -->
                 <li>
                     <a href="{% url 'contacts_page' %}" class="navButton" id="buttonContacts">Контакти</a>
@@ -76,7 +50,7 @@
                                 </dl>
                             </address>
                         </li>
-                        <img src="{% static 'carsale_app/img/General/FooterImg.png' %}" alt="porscheImg">
+                        <img src="{% static 'carsale_app/img/General/Footer/footer1.png' %}" alt="porscheImg">
                     </ul>
                 <!-- Сервісне меню -->
                 <li>
@@ -112,7 +86,7 @@
             <a href="{% url 'model_page' %}#sales" class="footerButton">Новинки</a>
             <a href="{% url 'contacts_page' %}" class="footerButton">Контакти</a>
         </section>
-        <img src="{% static 'carsale_app/img/General/FooterImg.png' %}" alt="footerImg" class="footerImg">
+        <img src="{% static 'carsale_app/img/General/Footer/footer1.png' %}" alt="footerImg" class="footerImg">
         <section class="menuButtons">
             <a href="{% url 'contacts_page' %}" class="footerButton">м. Київ</a>
             <a href="{% url 'contacts_page' %}" class="footerButton">бул. Вацлава Гавела 4</a>
