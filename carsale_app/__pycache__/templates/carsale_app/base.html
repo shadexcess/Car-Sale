@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Автомобілі BMW{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    {% block css %}
+    {% endblock %}
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <a href="{% url 'index' %}" class="logo">
+            <img src="{% static 'carsale_app/img/General/MainLogo.png' %}" alt="Bmw Logo" class="main-ico">
+        </a>
+        <nav>
+            <ul class="nav-list">
+                <!-- Меню моделей -->
+                <li>
+                    <a href="{% url 'models' %}?model=m-series" class="navButton" id="buttonModels">Моделі</a>
+                </li>
+                <!-- Меню контактів -->
+                <li>
+                    <a href="{% url 'contacts_page' %}" class="navButton" id="buttonContacts">Контакти</a>
+                </li>
+                    <ul class="contactsMenu">
+                        <li>
+                            <h2>Наші контакти</h2>
+                            <address>
+                                <dl>
+                                    <dt>моб. телефон:</dt>
+                                    <dd><a href="tel:+12345">+12345</a></dd>
+                                    <dt>е-пошта:</dt>
+                                    <dd><a href="mailto:bmwmain@test.ua">bmwmain@test.ua</a></dd>
+                                </dl>
+                            </address>
+                        </li>
+                        <li>
+                            <h2>Адреса автосалону</h2>
+                            <address>
+                                <dl>
+                                    <dt>місто:</dt>
+                                    <dd>м. Київ</dd>
+                                    <dt>бульвар:</dt>
+                                    <dd>Вацлава Гавела 4</dd>
+                                </dl>
+                            </address>
+                        </li>
+                        <img src="{% static 'carsale_app/img/General/FooterImg.png' %}" alt="porscheImg">
+                    </ul>
+                <!-- Сервісне меню -->
+                <li>
+                    <a href="{% url 'service_page' %}" class="navButton" id="buttonServices">Сервіси</a>
+                </li>
+                    <ul class="servicesMenu">
+                        <li>
+                            <a href="{% url 'service_page' %}">Сервісне обслуговування</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'model_page' %}#testDrive">Test-Drive в автосалонах BMW</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'trade_in_page' %}">Trade-In</a>
+                        </li>
+                    </ul>
+            </ul>
+        </nav>
+    </header>
+    <!-- /Header -->
+
+    <!-- Унікальний контент сторінки -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <section class="menuButtons">
+            <a href="#" class="footerButton">Всі моделі</a>
+            <a href="{% url 'service_page' %}" class="footerButton">Сервіси</a>
+            <a href="{% url 'model_page' %}#sales" class="footerButton">Новинки</a>
+            <a href="{% url 'contacts_page' %}" class="footerButton">Контакти</a>
+        </section>
+        <img src="{% static 'carsale_app/img/General/FooterImg.png' %}" alt="footerImg" class="footerImg">
+        <section class="menuButtons">
+            <a href="{% url 'contacts_page' %}" class="footerButton">м. Київ</a>
+            <a href="{% url 'contacts_page' %}" class="footerButton">бул. Вацлава Гавела 4</a>
+            <p class="footerButton">Пн-Пт: 09:00 - 21:00</p>
+            <p class="footerButton">Сб-Нд: 10:00 - 16:00</p>
+        </section>
+    </footer>
+    <!-- /Footer -->
+
+    <!-- Скрипти для кожної сторінки -->
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html>

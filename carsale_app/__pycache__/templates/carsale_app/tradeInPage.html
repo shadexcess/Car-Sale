@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Trade-In BMW
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'carsale_app/css/stylesTradeIn.css' %}">
+{% endblock %}
+
+{% block content %}
+<article method="post" id="tradeInForm">
+        {% csrf_token %}
+        <!-- Перший блок - вибір автомобіля, яке ПРОПОНУЄ користувач -->
+        <section class="stepBlock">
+            <h1>Крок 1</h1>
+            <div class="choiceCar">
+                <h2>Оберіть авто, що Ви пропонуєте<br>з доступного переліку:</h2>
+                {{ form.customer_car_brand }}
+                {{ form.customer_car_model }}
+                {{ form.customer_car_year }}
+            </div>
+            <div class="price">
+                <h2>Приблизна ціна моделі:<br>~ <span id="priceValue">80 000</span>$</h2>
+                <p>*Фінальна ціна моделі буде<br>точно озвучена після оцінки</p>
+            </div>
+            <img src="{% static 'carsale_app/img/General/bmwTradeIn.png' %}" alt="carImg" id="carModelImg">
+        </section>
+
+        <!-- Другий блок - вибір автомобіля з доступних в авто-салоні -->
+        <section class="stepBlock">
+            <h1>Крок 2</h1>
+            <div class="choiceCar">
+                <h2>Оберіть бажане авто для Trade-In<br>з доступного переліку:</h2>
+                {{ form.desired_car }}
+            </div>
+            <div class="price">
+                <h2>Приблизна доплата при Trade-In:<br>~ <span id="priceValueStep2">80 000</span>$</h2>
+                <p>*Фінальна ціна моделі буде<br>точно озвучена після оцінки</p>
+            </div>
+            <img src="{% static 'carsale_app/img/General/bmwTradeIn2.png' %}" alt="carImg" id="carModelImgStep2">
+        </section>
+
+        <!-- Третій блок - заповнення даних -->
+        <section class="stepBlock">
+            <h1>Крок 3</h1>
+            <div class="choiceCar">
+                <p>Для фінальної оцінки Вашого авто<br>потрібно зв‘язатися з менеджером</p>
+                <h2>Заповніть заявку нижче</h2>
+                <ul>
+                    <li>
+                        <label>ім‘я</label>
+                        {{ form.customer_name }}
+                    </li>
+                    <li>
+                        <label>бажана дата</label>
+                        {{ form.preferred_date }}
+                    </li>
+                    <li>
+                        <label>бажаний автосалон</label>
+                        {{ form.dealership }}
+                    </li>
+                    <li>
+                        <label>бажаний час</label>
+                        {{ form.preferred_time }}
+                    </li>
+                </ul>
+            </div>
+            <button type="submit" form="tradeInForm" id="saveButton">Зберегти</button>
+            <img src="{% static 'carsale_app/img/General/bmwTradeIn3.png' %}" alt="carImg">
+        </section>
+        </form>
+        <!-- Екран з повідомленням про успішне збереження -->
+        <div class="successScreen" id="successScreen">
+            <p>Дані успішно збережено!</p>
+            <button id="buttonOK">ok</button>
+        </div>
+</article>
+
+<!-- Текст для заповнення простору -->
+<section class="generalInfo">
+    <img src="{% static 'carsale_app/img/General/PreFooter3.jpg' %}" alt="BMW">
+    <div class="text">
+        <h2>Trade-In</h2>
+        <p>Програма Trade-In від BMW — це зручний спосіб оновити ваш автомобіль без зайвих турбот. Обміняйте свій старий
+            автомобіль на нову модель BMW і отримайте вигідну пропозицію з оцінкою вашого транспортного засобу.</p>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'carsale_app/js/scriptTradeIn.js' %}"></script>
+{% endblock %}
