@@ -1,9 +1,10 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 class Car(models.Model):
     brand = models.CharField(max_length=50, verbose_name="Марка", default="BMW")
     model = models.CharField(max_length=50, verbose_name="Модель")
-    series = models.CharField(max_length=50, verbose_name="Серія")  # Наприклад, M-Series, X-Series
+    series = models.CharField(max_length=50, verbose_name="Серія")
     year = models.PositiveIntegerField(verbose_name="Рік випуску", null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Ціна")
     power = models.IntegerField(verbose_name="Потужність (к.с.)")
@@ -12,6 +13,10 @@ class Car(models.Model):
     range_km = models.IntegerField(verbose_name="Запас ходу (км)")
     description = models.TextField(verbose_name="Опис", blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата створення")
+
+    def clean(self):
+        if self.price < 0:
+            raise ValidationError({"price": "Ціна не може бути від’ємною."})
 
     class Meta:
         verbose_name = "Автомобіль"

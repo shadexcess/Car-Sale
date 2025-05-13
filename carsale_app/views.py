@@ -43,6 +43,7 @@ def contacts_page(request):
     return render(request, 'contactsPage.html')
 
 def trade_in_page(request):
+    cars = Car.objects.all()
     if request.method == 'POST':
         form = TradeInForm(request.POST)
         if form.is_valid():
@@ -50,6 +51,7 @@ def trade_in_page(request):
             return redirect('trade_in_page')  # Перенаправлення після збереження
     
     data = {
+        'cars': cars,
         'form': TradeInForm()
     }
     return render(request, 'tradeInPage.html', data)
