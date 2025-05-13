@@ -37,13 +37,7 @@ Trade-In BMW
             <h1>Крок 2</h1>
             <div class="choiceCar">
                 <h2>Оберіть бажане авто для Trade-In<br>з доступного переліку:</h2>
-                <select id = "carStep2">
-                    <option>----------</option>
-                    <option value = "X5">BMW X5</option>
-                    <option value = "M5">BMW M5</option>
-                    <option value = "330i">BMW 330i</option>
-                    <option value = "530i">BMW 530i</option>
-                </select>
+                {{ form.desired_car }}
             </div>
             <div class="price">
                 <h2>Приблизна доплата при Trade-In:<br>~ <span id="priceValueStep2">0</span>$</h2>
@@ -152,20 +146,21 @@ Trade-In BMW
 
             const priceStep2 = document.getElementById("priceValueStep2");
 
-            const carStep2 = document.getElementById("carStep2").value;
+            const carStep2 = document.getElementById("id_desired_car").value;
+            console.log("carStep2", carStep2)
             let price;
 
             switch (carStep2) {
-                case "X5":
+                case "1":
                     price = 150000;
                     break;
-                case "M5":
+                case "2":
                     price = 100000;
                     break;
-                case "330i":
+                case "3":
                     price = 60000;
                     break;
-                case "530i":
+                case "4":
                     price = 75000;
                     break;
                 default:
