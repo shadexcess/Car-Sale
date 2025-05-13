@@ -66,6 +66,12 @@ article {
     gap: 15rem;
 }
 
+.articleSection {
+    display: flex;
+    flex-direction: column;
+    gap: 15rem;
+}
+
 article .stepBlock:nth-child(3) {
     display: flex;
     align-items: flex-end;

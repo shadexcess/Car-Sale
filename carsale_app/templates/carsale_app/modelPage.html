@@ -23,7 +23,8 @@
     </div>
     {% if car %}
     <div class="imgInfo">
-        <img id="modelImage" src="{% static 'carsale_app/img/'|add:'BMW '|add:car.series|add:'/'|add:car.model|add:'.jpg' %}" alt="{{ car.model }}"> 
+        <img id="modelImage" src="{% static 'carsale_app/img/Models/'|add:car.model|add:'.png' %}" alt="{{ car.model }}"> 
+
         <div class="detailInfo">
             <ul id="modelDetails">
                 <li>Потужність (к/с): {{ car.power }}</li>
@@ -34,11 +35,13 @@
             </ul>
         </div>
     </div>
+            
     {% else %}
-        <div class="notSelectArticle">
+        <div class = "notSelectArticle">
             <img id="modelImage" src="{% static 'carsale_app/img/General/testDrivePage/articleImg.jpg' %}" alt="BMW"> 
         </div>
     {% endif %}
+    </div>
     <div class="buttons">
         <a href="#testDrive">Тест-Драйв</a>
         {% if car %}
@@ -50,14 +53,14 @@
 
 <!-- Текст для заповнення вільного простору -->
 <section class="generalInfo">
-    <img src="{% static 'carsale_app/img/General/Footer/footer2.png' %}" alt="BMW">
+    <img src="{% static 'carsale_app/img/General/testDrivePage/text1.jpg' %}" alt="BMW">
     <div class="text">
         {% if car %}
             <h2>Лінійка BMW {{ car.series }}</h2>
-            <p>{{ car.description|truncatewords:50 }}</p>
+            <p>Ознайомтесь із модельним рядом BMW, який поєднує динаміку, потужність та німецьку інженерну точність.</p>
         {% else %}
             <h2>Лінійка BMW</h2>
-            <p>Ознайомтесь із модельним рядом BMW, який поєднує динаміку, потужність і німецьку інженерну точність.</p>
+            <p>Ознайомтесь із модельним рядом BMW, який поєднує динаміку, потужність та німецьку інженерну точність.</p>
         {% endif %}
     </div>
 </section>
@@ -138,18 +141,19 @@
 </section>
 {% endif %}
 
-<section class="sales" id="sales">
+<section class = "sales" id = "sales">
     <h3>Пропозиції</h3>
 
-    <div class="optionSales">
-        <img src="{% static 'carsale_app/img/General/testDrivePage/gift.png' %}" alt="giftImg">
+    <div class = "optionSales">
+        <img src = "{% static 'carsale_app/img/General/testDrivePage/gift.png'%}" alt = giftImg>
         <p>
             Відчуйте справжнє задоволення від кермування разом із BMW! Придбати будь-яку модель BMW тепер ще вигідніше — ми даруємо знижку 5% для нових власників. Це чудова можливість стати частиною легендарного бренду, що втілює динаміку, інновації та елегантність. Пропозиція діє протягом обмеженого часу, тож не відкладайте. Обирайте свою ідеальну модель BMW вже сьогодні та вирушайте назустріч новим враженням!
         </p>
-        <img src="{% static 'carsale_app/img/General/testDrivePage/christmasTree.png' %}" alt="christmasTree">
+        <img src = "{% static 'carsale_app/img/General/testDrivePage/gift.png'%}">
     </div>
+
     <div class = "price">
-        <img src = "img/Porsche Taycan/TaycanModelPage.png" alt = "PorscheImg" id = "imageModel">
+        <img src = "{% static 'carsale_app/img/General/testDrivePage/bmwPreview1.png'%}" alt = "PorscheImg" id = "imageModel">
         <p>
             Вартість конкретної моделі<br>:(без врахування знижки)<br><span id = "priceModel" class = "priceModel">від 100.000</span>
         </p>
@@ -159,7 +163,7 @@
 
 <!-- Текст для заповнення вільного простору -->
 <section class="generalInfo">
-    <img src="{% static 'carsale_app/img/General/testDrivePage/text1.jpg' %}" alt="BMW">
+    <img src="{% static 'carsale_app/img/General/testDrivePage/text2.jpg'%}" alt="BMW">
     <div class="text">
         <h2>Твій BMW</h2>
         <p>Вам доступний конфігуратор, завдяки якому Ви можете створити BMW своєї мрії. Проявіть креативність, та створіть автомобіль мрії.</p>

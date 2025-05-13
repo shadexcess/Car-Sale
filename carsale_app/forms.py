@@ -72,7 +72,7 @@ class TradeInForm(forms.ModelForm):
                     'id': 'id_customer_car_brand'
                 }
             ),
-            'customer_car_model': forms.TextInput(
+            'customer_car_model': forms.Select(
                 attrs={
                     'placeholder': 'Модель автомобіля',
                     'class': 'choice-input',
