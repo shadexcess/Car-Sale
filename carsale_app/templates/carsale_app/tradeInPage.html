@@ -10,22 +10,28 @@ Trade-In BMW
 {% endblock %}
 
 {% block content %}
-<article method="post" id="tradeInForm">
+<article>
+    <form method="post" id="tradeInForm">
         {% csrf_token %}
         <!-- Перший блок - вибір автомобіля, яке ПРОПОНУЄ користувач -->
         <section class="stepBlock">
             <h1>Крок 1</h1>
             <div class="choiceCar">
                 <h2>Оберіть авто, що Ви пропонуєте<br>з доступного переліку:</h2>
+                <img src="{% static 'carsale_app/img/General/informationLogo.png' %}" alt="informationLogo"
+                    id="informationLogo">
+                <div class="messageInfo" id="messageInfo">
+                    <p>На даний момент, для послуги Trade-In<br>доступні різні марки автомобілів</p>
+                </div>
                 {{ form.customer_car_brand }}
                 {{ form.customer_car_model }}
                 {{ form.customer_car_year }}
             </div>
             <div class="price">
-                <h2>Приблизна ціна моделі:<br>~ <span id="priceValue">80 000</span>$</h2>
+                <h2>Приблизна ціна моделі:<br>~ <span id="priceValue">0</span>$</h2>
                 <p>*Фінальна ціна моделі буде<br>точно озвучена після оцінки</p>
             </div>
-            <img src="{% static 'carsale_app/img/General/tradeInPage/bmwTradeIn.png' %}" alt="carImg" id="carModelImg">
+            <img src="{% static 'carsale_app/img/General/porscheTradeIn.png' %}" alt="carImg" id="carModelImg">
         </section>
 
         <!-- Другий блок - вибір автомобіля з доступних в авто-салоні -->
@@ -39,7 +45,8 @@ Trade-In BMW
                 <h2>Приблизна доплата при Trade-In:<br>~ <span id="priceValueStep2">80 000</span>$</h2>
                 <p>*Фінальна ціна моделі буде<br>точно озвучена після оцінки</p>
             </div>
-            <img src="{% static 'carsale_app/img/General/tradeInPage/bmwTradeIn2.png' %}" alt="carImg" id="carModelImgStep2">
+            <img src="{% static 'carsale_app/img/General/porscheTradeIn2.png' %}" alt="carImg" id="carModelImgStep2">
+            <button id="calculatePrice">Розрахувати</button>
         </section>
 
         <!-- Третій блок - заповнення даних -->
@@ -68,7 +75,7 @@ Trade-In BMW
                 </ul>
             </div>
             <button type="submit" form="tradeInForm" id="saveButton">Зберегти</button>
-            <img src="{% static 'carsale_app/img/General/tradeInPage/bmwTradeIn3.png' %}" alt="carImg">
+            <img src="{% static 'carsale_app/img/General/porscheTradeIn3.png' %}" alt="carImg">
         </section>
         </form>
         <!-- Екран з повідомленням про успішне збереження -->
@@ -80,7 +87,7 @@ Trade-In BMW
 
 <!-- Текст для заповнення простору -->
 <section class="generalInfo">
-    <img src="{% static 'carsale_app/img/General/tradeInPage/text1.jpg' %}" alt="BMW">
+    <img src="{% static 'carsale_app/img/General/PreFooter3.jpg' %}" alt="BMW">
     <div class="text">
         <h2>Trade-In</h2>
         <p>Програма Trade-In від BMW — це зручний спосіб оновити ваш автомобіль без зайвих турбот. Обміняйте свій старий
@@ -89,6 +96,92 @@ Trade-In BMW
 </section>
 {% endblock %}
 
+
+
 {% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const brandSelect = document.getElementById("id_customer_car_brand");
+    const modelSelect = document.getElementById("id_customer_car_model");
+    const yearSelect = document.getElementById("id_customer_car_year");
+    const priceValue = document.getElementById("priceValue");
+
+    let jsonData = null;
+
+    fetch("{% static 'carsale_app/json/auto_data.json' %}")
+        .then(response => response.json())
+        .then(data => {
+            jsonData = data;
+
+            // Заповнення брендів — твоя поточна логіка
+            brandSelect.innerHTML = '<option value="">Оберіть марку</option>';
+            modelSelect.innerHTML = '<option value="">Оберіть модель</option>';
+            data.brands.forEach(brand => {
+                const option = document.createElement("option");
+                option.value = brand.name;
+                option.textContent = brand.name;
+                brandSelect.appendChild(option);
+            });
+
+            brandSelect.addEventListener("change", function () {
+                const selectedBrand = this.value;
+                modelSelect.innerHTML = '<option value="">Оберіть модель</option>';
+                const brandData = data.brands.find(b => b.name === selectedBrand);
+                if (brandData && brandData.models) {
+                    brandData.models.forEach(model => {
+                        const option = document.createElement("option");
+                        option.value = model.name;
+                        option.textContent = model.name;
+                        modelSelect.appendChild(option);
+                    });
+                }
+            });
+        });
+
+        // Обробка натискання кнопки
+        document.getElementById("calculatePrice").addEventListener("click", function () {
+        const selectedBrand = brandSelect.value;
+        const selectedModel = modelSelect.value;
+        const selectedYear = yearSelect.value;
+
+        if (!selectedBrand || !selectedModel || !selectedYear) {
+            alert("Будь ласка, оберіть марку, модель та рік.");
+            return;
+        }
+
+        const brandData = jsonData.brands.find(b => b.name === selectedBrand);
+        const modelData = brandData?.models.find(m => m.name === selectedModel);
+
+        if (!brandData || !modelData) {
+            alert("Не вдалося знайти ID марки або моделі.");
+            return;
+        }
+
+        const marka_id = brandData.id;
+        const model_id = modelData.id;
+
+
+        const apiKey = "1zPXJHLXZCY0jvQfkk1yGGYnU9nWC6NxfVLTRMFD"; ///////////////////////////////////////////////////////////////////////////////////
+        const url = `https://developers.ria.com/auto/average_price?marka_id=${marka_id}&model_id=${model_id}&yers[]=${selectedYear}&api_key=${apiKey}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(result => {
+                if (result.arithmeticMean) {
+                    priceValue.innerText = result.arithmeticMean.toLocaleString("uk-UA");
+                } else {
+                    priceValue.innerText = "Н/д";
+                    console.warn("Середню ціну не знайдено.");
+                }
+            })
+            .catch(err => {
+                console.error("Помилка запиту:", err);
+                alert("Сталася помилка при запиті до API.");
+            });
+    });
+});
+
+</script>
+
 <script src="{% static 'carsale_app/js/scriptTradeIn.js' %}"></script>
 {% endblock %}
