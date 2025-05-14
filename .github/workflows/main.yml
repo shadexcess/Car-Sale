@@ -22,3 +22,11 @@ jobs:
 
     - name: Run pytest inside container
       run: docker run --rm my-django-app pytest
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Render Deployment
+        run: |
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
