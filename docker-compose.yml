@@ -1,6 +1,6 @@
 services:
   app:
-    image: my-docker-image
+    build: .
     container_name: my-docker-container
     ports:
       - "8001:8000"
