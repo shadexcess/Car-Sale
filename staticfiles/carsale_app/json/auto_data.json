@@ -1,0 +1,244 @@
+{
+  "fuel_types": [
+    { "name": "Бензин", "value": 1 },
+    { "name": "Дизель", "value": 2 },
+    { "name": "Газ", "value": 3 },
+    { "name": "Газ/бензин", "value": 4 },
+    { "name": "Гібрид", "value": 5 },
+    { "name": "Електро", "value": 6 },
+    { "name": "Інше", "value": 7 },
+    { "name": "Газ метан", "value": 8 },
+    { "name": "Газ пропан-бутан", "value": 9 }
+  ],
+  "body_types": [
+    { "name": "Седан", "value": 3 },
+    { "name": "Позашляховик / Кросовер", "value": 5 },
+    { "name": "Мінівен", "value": 8 },
+    { "name": "Хетчбек", "value": 4 },
+    { "name": "Універсал", "value": 2 },
+    { "name": "Купе", "value": 6 },
+    { "name": "Легковий фургон (до 1,5 т)", "value": 254 },
+    { "name": "Кабріолет", "value": 7 },
+    { "name": "Пікап", "value": 9 },
+    { "name": "Лимузин", "value": 252 },
+    { "name": "Інше", "value": 28 }
+  ],
+  "brands": [
+    {
+      "name": "Audi",
+      "id": 6,
+      "models": [
+        { "name": "A1", "id": 4 },
+        { "name": "A2", "id": 4 },
+        { "name": "A3", "id": 4 },
+        { "name": "A4", "id": 4 },
+        { "name": "A5", "id": 4 },
+        { "name": "A6", "id": 4 },
+        { "name": "A7 Sportback", "id": 32378 },
+        { "name": "A8", "id": 4 },
+        { "name": "Q3", "id": 4 },
+        { "name": "Q5", "id": 4 },
+        { "name": "Q7", "id": 4 },
+        { "name": "Q8", "id": 4 }
+      ]
+    },
+    {
+      "name": "BMW",
+      "id": 9,
+      "models": [
+        { "name": "1 Series", "id": 2161 },
+        { "name": "2 Series", "id": 43023 },
+        { "name": "3 Series", "id": 3219 },
+        { "name": "4 Series", "id": 42495 },
+        { "name": "5 Series", "id": 34 },
+        { "name": "5 Series", "id": 2319 },
+        { "name": "6 Series", "id": 3218 },
+        { "name": "7 Series", "id": 18490 },
+        { "name": "X1", "id": 1 },
+        { "name": "X3", "id": 1 },
+        { "name": "X4", "id": 1 },
+        { "name": "X5", "id": 1 },
+        { "name": "X6", "id": 1 },
+        { "name": "X7", "id": 1 },
+        { "name": "I8", "id": 44537 }
+      ]
+    },
+    {
+      "name": "Volkswagen",
+      "id": 84,
+      "models": [
+        { "name": "Arteon", "id": 51838 },
+        { "name": "CC / Passat CC", "id": 3006 },
+        { "name": "e-Golf", "id": 45152 },
+        { "name": "Golf", "id": 35449 },
+        { "name": "Jetta", "id": 785 },
+        { "name": "Multivan", "id": 32103 },
+        { "name": "Polo", "id": 789 },
+        { "name": "Sharan", "id": 792 },
+        { "name": "Tiguan", "id": 2692 },
+        { "name": "Touareg", "id": 793 },
+        { "name": "Touran", "id": 2093 }
+      ]
+    },
+    {
+      "name": "Kia",
+      "id": 33,
+      "models": [
+        { "name": "Ceed", "id": 2033 },
+        { "name": "Cerato", "id": 1311 },
+        { "name": "Mohave", "id": 3586 },
+        { "name": "Picanto", "id": 1306 },
+        { "name": "Sorento", "id": 326 },
+        { "name": "Soul", "id": 3488 }
+      ]
+    },
+    {
+      "name": "Chevrolet",
+      "id": 13,
+      "models": [
+        { "name": "Aveo", "id": 1038 },
+        { "name": "Bolt EUV", "id": 63545 },
+        { "name": "Camaro", "id": 111 },
+        { "name": "Cruze", "id": 3588 },
+        { "name": "Volt", "id": 33783 }
+      ]
+    },
+    {
+      "name": "Honda",
+      "id": 28,
+      "models": [
+        { "name": "Civic", "id": 265 },
+        { "name": "CR-V", "id": 269 },
+        { "name": "HR-V", "id": 271 },
+        { "name": "M-NV", "id": 62906 }
+      ]
+    },
+    {
+      "name": "Hyundai",
+      "id": 29,
+      "models": [
+        { "name": "Accent", "id": 1258 },
+        { "name": "Creta", "id": 49259 },
+        { "name": "Elantra", "id": 3086 },
+        { "name": "Getz", "id": 35223 },
+        { "name": "Grand Santa Fe", "id": 43651 },
+        { "name": "Grandeur", "id": 2186 },
+        { "name": "i10", "id": 2770 },
+        { "name": "i20", "id": 2771 },
+        { "name": "i30", "id": 2772 },
+        { "name": "i40", "id": 38715 },
+        { "name": "Ioniq", "id": 50018 },
+        { "name": "ix35", "id": 3901 },
+        { "name": "Kona", "id": 51933 },
+        { "name": "Palisade", "id": 60031 },
+        { "name": "Santa FE", "id": 293 },
+        { "name": "Sonata", "id": 295 },
+        { "name": "Tucson", "id": 1268 }
+      ]
+    },
+    {
+      "name": "Ford",
+      "id": 24,
+      "models": [
+        { "name": "C-Max", "id": 2036 },
+        { "name": "Escort", "id": 237 },
+        { "name": "Kuga", "id": 2874 },
+        { "name": "Mondeo", "id": 246 },
+        { "name": "S-Max", "id": 2037 }
+      ]
+    },
+    {
+      "name": "Mitsubishi",
+      "id": 52,
+      "models": [
+        { "name": "ASX", "id": 30805 },
+        { "name": "Eclipse Cross", "id": 53277 },
+        { "name": "Grandis", "id": 1475 }
+      ]
+    },
+    {
+      "name": "Renault",
+      "id": 62,
+      "models": [
+        { "name": "Arkana", "id": 61831 },
+        { "name": "Captur", "id": 44442 },
+        { "name": "Clio", "id": 579 },
+        { "name": "Fluence", "id": 3898 },
+        { "name": "Grand Scenic", "id": 3185 },
+        { "name": "Kadjar", "id": 49115 },
+        { "name": "Kangoo", "id": 59145 },
+        { "name": "Koleos", "id": 2832 },
+        { "name": "Megane", "id": 586 },
+        { "name": "Scenic", "id": 588 },
+        { "name": "Trafic", "id": 60014 },
+        { "name": "Zoe", "id": 42148 }
+      ]
+    },
+    {
+      "name": "Toyota",
+      "id": 79,
+      "models": [
+        { "name": "Auris", "id": 2040 },
+        { "name": "Avalon", "id": 1832 },
+        { "name": "Avensis", "id": 696 },
+        { "name": "C-HR", "id": 49999 },
+        { "name": "Camry", "id": 698 },
+        { "name": "Corolla", "id": 702 },
+        { "name": "Corolla Cross", "id": 64459 },
+        { "name": "FJ Cruiser", "id": 1910 },
+        { "name": "Highlander", "id": 2090 },
+        { "name": "Hilux", "id": 2509 },
+        { "name": "Land Cruiser", "id": 35000 },
+        { "name": "Land Cruiser Prado", "id": 35004 },
+        { "name": "Prius", "id": 714 },
+        { "name": "RAV4", "id": 715 },
+        { "name": "Yaris", "id": 720 },
+        { "name": "Yaris Cross", "id": 63202 }
+      ]
+    },
+    {
+      "name": "Skoda",
+      "id": 70,
+      "models": [
+        { "name": "Fabia", "id": 649 },
+        { "name": "Felicia", "id": 651 },
+        { "name": "Kamiq", "id": 56023 },
+        { "name": "Karoq", "id": 51759 },
+        { "name": "Kodiaq", "id": 49223 },
+        { "name": "Octavia", "id": 652 },
+        { "name": "Octavia Scout", "id": 3009 },
+        { "name": "Roomster", "id": 2038 },
+        { "name": "Superb", "id": 3167 }
+      ]
+    },
+    {
+      "name": "Nissan",
+      "id": 55,
+      "models": [
+        { "name": "Almera", "id": 487 },
+        { "name": "Altima", "id": 1495 },
+        { "name": "Juke", "id": 24932 },
+        { "name": "Leaf", "id": 36565 },
+        { "name": "Micra", "id": 494 },
+        { "name": "Murano", "id": 1730 },
+        { "name": "Navara", "id": 2472 },
+        { "name": "Note", "id": 1975 },
+        { "name": "Qashqai", "id": 2197 },
+        { "name": "Sentra", "id": 2689 },
+        { "name": "Teana", "id": 2034 },
+        { "name": "TIIDA", "id": 2775 }
+      ]
+    },
+    {
+      "name": "Opel",
+      "id": 56,
+      "models": [
+        { "name": "Antara", "id": 3798 },
+        { "name": "Grandland", "id": 63163 },
+        { "name": "Insignia", "id": 3121 },
+        { "name": "Kadett", "id": 509 },
+        { "name": "Mokka", "id": 42885 }
+      ]
+    }
+  ]
+}
