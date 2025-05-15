@@ -96,8 +96,6 @@ Trade-In BMW
 </section>
 {% endblock %}
 
-
-
 {% block scripts %}
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -113,7 +111,7 @@ Trade-In BMW
             .then(data => {
                 jsonData = data;
 
-                // Заповнення брендів — твоя поточна логіка
+                // Заповнення брендів
                 brandSelect.innerHTML = '<option value="">Оберіть марку</option>';
                 modelSelect.innerHTML = '<option value="">Оберіть модель</option>';
                 data.brands.forEach(brand => {
@@ -140,76 +138,68 @@ Trade-In BMW
 
             // Обробка натискання кнопки
             document.getElementById("calculatePrice").addEventListener("click", function () {
-            const selectedBrand = brandSelect.value;
-            const selectedModel = modelSelect.value;
-            const selectedYear = yearSelect.value;
+                const selectedBrand = brandSelect.value;
+                const selectedModel = modelSelect.value;
+                const selectedYear = yearSelect.value;
+                const priceStep2 = document.getElementById("priceValueStep2");
+                const desiredCarSelect = document.getElementById("id_desired_car");
+                const selectedDesiredCarId = desiredCarSelect.value;
 
-            const priceStep2 = document.getElementById("priceValueStep2");
+                if (!selectedBrand || !selectedModel || !selectedYear) {
+                    alert("Будь ласка, оберіть марку, модель та рік.");
+                    return;
+                }
 
-            const carStep2 = document.getElementById("id_desired_car").value;
-            console.log("carStep2", carStep2)
-            let price;
+                const brandData = jsonData.brands.find(b => b.name === selectedBrand);
+                const modelData = brandData?.models.find(m => m.name === selectedModel);
 
-            switch (carStep2) {
-                case "1":
-                    price = 150000;
-                    break;
-                case "2":
-                    price = 100000;
-                    break;
-                case "3":
-                    price = 60000;
-                    break;
-                case "4":
-                    price = 75000;
-                    break;
-                default:
-                    price = 0; 
-                    break;
-            }
+                if (!brandData || !modelData) {
+                    alert("Не вдалося знайти ID марки або моделі.");
+                    return;
+                }
 
-            if (!selectedBrand || !selectedModel || !selectedYear) {
-                alert("Будь ласка, оберіть марку, модель та рік.");
-                return;
-            }
+                const marka_id = brandData.id;
+                const model_id = modelData.id;
 
-            const brandData = jsonData.brands.find(b => b.name === selectedBrand);
-            const modelData = brandData?.models.find(m => m.name === selectedModel);
+                // Fetch car price from database
+                fetch(`/get_car_price/${selectedDesiredCarId}/`)
+                    .then(response => response.json())
+                    .then(carData => {
+                        if (carData.price) {
+                            const desiredCarPrice = parseFloat(carData.price);
 
-            if (!brandData || !modelData) {
-                alert("Не вдалося знайти ID марки або моделі.");
-                return;
-            }
+                            const apiKey = "1zPXJHLXZCY0jvQfkk1yGGYnU9nWC6NxfVLTRMFD";
+                            const url = `https://developers.ria.com/auto/average_price?marka_id=${marka_id}&model_id=${model_id}&yers[]=${selectedYear}&api_key=${apiKey}`;
 
-            const marka_id = brandData.id;
-            const model_id = modelData.id;
+                            fetch(url)
+                                .then(response => response.json())
+                                .then(result => {
+                                    if (result.arithmeticMean) {
+                                        const apiPrice = result.arithmeticMean;
+                                        const difference = desiredCarPrice - apiPrice;
 
-
-            const apiKey = "1zPXJHLXZCY0jvQfkk1yGGYnU9nWC6NxfVLTRMFD"; ///////////////////////////////////////////////////////////////////////////////////
-            const url = `https://developers.ria.com/auto/average_price?marka_id=${marka_id}&model_id=${model_id}&yers[]=${selectedYear}&api_key=${apiKey}`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(result => {
-                    if (result.arithmeticMean) {
-                        const apiPrice = result.arithmeticMean;
-                        const difference = price - apiPrice;
-
-                        priceStep2.innerHTML = `${difference.toLocaleString("uk-UA")}`;
-
-                        priceValue.innerText = result.arithmeticMean.toLocaleString("uk-UA");
-                    } else {
-                        priceValue.innerText = "Н/д";
-                        console.warn("Середню ціну не знайдено.");
-                    }
-                })
-                .catch(err => {
-                    console.error("Помилка запиту:", err);
-                    alert("Сталася помилка при запиті до API.");
-                });
-        });
+                                        priceStep2.innerHTML = `${difference.toLocaleString("uk-UA")}`;
+                                        priceValue.innerText = result.arithmeticMean.toLocaleString("uk-UA");
+                                    } else {
+                                        priceValue.innerText = "Н/д";
+                                        priceStep2.innerHTML = "Н/д";
+                                        console.warn("Середню ціну не знайдено.");
+                                    }
+                                })
+                                .catch(err => {
+                                    console.error("Помилка запиту до API:", err);
+                                    alert("Сталася помилка при запиті до API.");
+                                });
+                        } else {
+                            alert("Не вдалося отримати ціну бажаного автомобіля.");
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Помилка запиту до сервера:", err);
+                        alert("Сталася помилка при отриманні ціни автомобіля.");
+                    });
+            });
     });
-
 </script>
 
 <script src="{% static 'carsale_app/js/scriptTradeIn.js' %}"></script>

@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from .forms import TestDriveForm, TradeInForm
 from .models import Car
 
 def index(request):
-    cars = Car.objects.all()[:4]  # Обмежуємо до 4 автомобілів для головної сторінки
+    cars = Car.objects.all()  # Усі автомобілі без обмеження
     return render(request, 'index.html', {'cars': cars})
 
 def models(request):
@@ -55,3 +56,10 @@ def trade_in_page(request):
         'form': TradeInForm()
     }
     return render(request, 'tradeInPage.html', data)
+
+def get_car_price(request, car_id):
+    try:
+        car = Car.objects.get(id=car_id)
+        return JsonResponse({'price': str(car.price)})
+    except Car.DoesNotExist:
+        return JsonResponse({'error': 'Car not found'}, status=404)
