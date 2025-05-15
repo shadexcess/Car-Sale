@@ -42,6 +42,10 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@users.noreply.github.com"
 
+      - name: Authenticate with Personal Token
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.MY_GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
       - name: Merge feature branch into main
         run: |
           git checkout main
