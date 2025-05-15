@@ -14,14 +14,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-
     - name: Build Docker image
       run: docker build -t my-django-app .
 
     - name: Run pytest inside container
       run: docker run --rm my-django-app pytest
+      
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
@@ -30,3 +28,23 @@ jobs:
       - name: Trigger Render Deployment
         run: |
           curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+          
+  merge-to-master:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: success()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Git config
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@users.noreply.github.com"
+
+      - name: Merge feature branch into main
+        run: |
+          git checkout main
+          git pull origin main
+          git merge ${{ github.head_ref }} --no-ff -m "Merge feature branch ${{ github.head_ref }} after successful tests"
+          git push origin main
