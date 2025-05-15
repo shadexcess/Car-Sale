@@ -29,26 +29,14 @@ jobs:
         run: |
           curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
           
-  merge-to-master:
+  merge-to-main:
     needs: build-and-test
     runs-on: ubuntu-latest
-    if: success()
+    if: github.event_name == 'pull_request'
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Git config
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@users.noreply.github.com"
-
-      - name: Authenticate with Personal Token
-        run: |
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-
-      - name: Merge feature branch into main
-        run: |
-          git checkout main
-          git pull origin main
-          git merge ${{ github.head_ref }} --no-ff -m "Merge feature branch ${{ github.head_ref }} after successful tests"
-          git push origin main
+      - name: Enable auto-merge for pull request
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          merge-method: merge
+          pull-request-number: ${{ github.event.pull_request.number }}
